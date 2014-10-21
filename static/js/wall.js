@@ -19,7 +19,8 @@ function handleFormSubmit(evt) {
 
     console.log("handleFormSubmit: ", msg);
     addMessage(msg);
-
+    $("#message-container").html("");
+    getMessages();
     // Reset the message container to be empty
     textArea.val("");
 }
