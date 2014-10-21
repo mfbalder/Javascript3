@@ -3,8 +3,13 @@ $(document).ready(function () {
     // tags loads the JS. By putting this inside a jQuery $(document).ready()
     // function, this code only gets run when the document finishing loading.
     getMessages();
+    $('#clear-messages').click(function(evt){
+        $.get(
+            "/clearsession",
+            getMessages
+            );
+    });
     $("#message-form").submit(handleFormSubmit);
-    
 });
 
 
@@ -19,19 +24,23 @@ function handleFormSubmit(evt) {
 
     console.log("handleFormSubmit: ", msg);
     addMessage(msg);
-    $("#message-container").html("");
-    getMessages();
+    // $("#message-container").html("");
     // Reset the message container to be empty
     textArea.val("");
+
 }
+
 
 function getMessages() {
     $.get(
         "/api/wall/list",
         function(data) {
             var messageList = data.messages;
+            $('#message-container').html("");
             for(var i = 0; i < messageList.length; i++){
-                $("#message-container").prepend("<li class='list-group-item'>" + messageList[i]["message"] + "</li>");
+                $("#message-container").prepend(
+                    "<li class='list-group-item'>" +
+                     messageList[i]["message"] + "</li>");
             }
         }
     );
@@ -47,6 +56,7 @@ function addMessage(msg) {
         function (data) {
             console.log("addMessage: ", data);
             displayResultStatus(data.result);
+            getMessages();
         }
     );
 }

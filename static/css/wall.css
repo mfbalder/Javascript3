@@ -6,3 +6,14 @@
 h1 {
     color: purple;
 }
+
+
+
+#clear-messages {
+    display: inline-block;
+    margin-left: 450px;
+}
+
+.panel-title {
+    display: inline-block!important;
+}

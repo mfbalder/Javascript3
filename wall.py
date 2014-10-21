@@ -2,7 +2,7 @@ import json
 
 from flask import Flask, request, render_template, make_response
 
-from api import wall_list, wall_add, wall_error
+from api import wall_list, wall_add, wall_error, clear_wall
 
 
 app = Flask(__name__)
@@ -20,6 +20,11 @@ app.secret_key = 'a4c96d59-57a8-11e4-8b97-80e6500ee2f6'
 def index():
     """Return index page."""
     return render_template("wall.html")
+
+@app.route("/clearsession")
+def clearSession():
+    result = clear_wall()
+    return _convert_to_JSON(result)
 
 
 def _convert_to_JSON(result):

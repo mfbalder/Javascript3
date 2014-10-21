@@ -28,6 +28,11 @@ def wall_error(error):
         "result": error,
     }
 
+def clear_wall():
+    """Clears the wall"""
+    session.clear()
+    return wall_list()
+
 
 def wall_list():
     """Get messages.
@@ -55,6 +60,7 @@ def wall_add(msg):
 
     session.setdefault('wall', []).append(wall_dict)
 
+    print session
     result = wall_list()
     result["result"] = "Message Received"
 
