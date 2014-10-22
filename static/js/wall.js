@@ -73,6 +73,11 @@ function addMessage(msg) {
 function displayResultStatus(resultMsg) {
     var notificationArea = $("#sent-result");
     notificationArea.text(resultMsg);
+    if(resultMsg === "Your message is empty" ||
+         resultMsg === "You did not specify a message to set."){
+        notificationArea.removeClass("alert-info").addClass("alert-danger");
+    }
+    else {notificationArea.addClass("alert-info").removeClass("alert-danger");}
     notificationArea.slideDown(function () {
         // In JavaScript, "this" is a keyword that means "the object this
         // method or function is called on"; it is analogous to Python's
