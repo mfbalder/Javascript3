@@ -4,6 +4,8 @@ from flask import Flask, request, render_template, make_response
 
 from api import wall_list, wall_add, wall_error, clear_wall
 
+from HTMLParser import HTMLParser
+
 
 app = Flask(__name__)
 
@@ -66,7 +68,23 @@ def add_message():
     # Get the message from the "m" argument passed in the POST.
     # (to get things from a GET response, we've used request.args.get();
     # this is the equivalent for getting things from a POST response)
+    
+    class HTMLCleaner(HTMLParser):
+
+        container = ""
+
+        def handle_data(self, data):
+            self.container += data
+            return self.container
+
     msg = request.form.get('m').strip()
+
+    h = HTMLCleaner()
+
+    h.feed(msg)
+
+    msg = h.container
+
 
     if msg is None:
         result = wall_error("You did not specify a message to set.")
