@@ -17,6 +17,10 @@ $(document).ready(function () {
  * Handle submission of the form.
  */
 function handleFormSubmit(evt) {
+    $('#message-send').prop("disabled", true);
+    setTimeout(function() {
+        $('#message-send').prop("disabled", false);
+    }, 5000);
     evt.preventDefault();
 
     var textArea = $("#message");
